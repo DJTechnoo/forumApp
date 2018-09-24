@@ -4,8 +4,18 @@ class Pages {
 	
 	public function __construct(){
 		
-		echo "<br>Pages running";
 	}
+	
+	
+	public function index(){
+		
+	}
+	
+	public function about($id){
+		echo "<br><h1>About $id</h1>";
+	}
+	
+	
 	
 }
 

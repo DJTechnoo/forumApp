@@ -30,7 +30,13 @@ class Core {
 		echo "<br>current method: $this->currentMethod";
 		
 		$this->params = $url ? array_values($url) : [];
-		print_r($this->params);
+		
+		// Use the controller, the method ,and with the args
+		call_user_func_array(
+			[$this->currentController,
+			$this->currentMethod],
+			$this->params
+		);
 	}
 	
 	
