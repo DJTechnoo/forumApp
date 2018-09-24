@@ -4,16 +4,36 @@
 // Format: /Controller/Method/params
 
 class Core {
-	protected $currentController = 'pages';
+	protected $currentController = 'Pages';
 	protected $currentMethod = 'index';
 	protected $params = [];
 	
 	public function __construct(){
+		
 		$url = $this->getUrl();
-		if(file_exists("../app/controllers/".$url[0] . '.php')){
-			echo "It exists!";
+		if(file_exists("../app/controllers/".ucwords($url[0]) . '.php')){	// Does the controllerfile exist?
+			$this->currentController = ucwords($url[0]);
+			unset($url[0]);
 		}
+		
+		require_once "../app/controllers/".$this->currentController . '.php';
+		$this->currentController = new $this->currentController;
+		
+		
+		if(isset($url[1])){
+			if(method_exists($this->currentController, $url[1])){			// Does the method exist?
+				$this->currentMethod = $url[1];
+				unset($url[1]);
+			}	
+		}
+		
+		echo "<br>current method: $this->currentMethod";
+		
+		$this->params = $url ? array_values($url) : [];
+		print_r($this->params);
 	}
+	
+	
 	
 	public function getUrl(){
 		if(isset($_GET['url'])){
