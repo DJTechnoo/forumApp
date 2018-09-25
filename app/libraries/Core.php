@@ -27,7 +27,7 @@ class Core {
 			}	
 		}
 		
-		echo "<br>current method: $this->currentMethod";
+		//echo "<br>current method: $this->currentMethod";
 		
 		$this->params = $url ? array_values($url) : [];
 		
@@ -46,7 +46,7 @@ class Core {
 			$url = rtrim($_GET['url'], '/');
 			$url = filter_var($url, FILTER_SANITIZE_URL);
 			$url = explode('/', $url);
-			print_r($url);
+			//print_r($url);
 			return $url;
 		}
 	}

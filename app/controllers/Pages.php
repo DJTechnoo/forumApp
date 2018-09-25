@@ -3,16 +3,23 @@
 class Pages extends Controller {
 	
 	public function __construct(){
-		
+		$this->postModel = $this->model("Post");
 	}
 	
 	
 	public function index(){
-		$this->view("omg");
+		$posts= $this->postModel->getPosts();
+		
+		$data = [
+			"title" => "Home",
+			"posts" => $posts
+		
+		];
+		$this->view("pages/index", $data);
 	}
 	
-	public function about($id){
-		echo "<br><h1>About $id</h1>";
+	public function about(){
+		$this->view("pages/about", ["title" => "About Us"]);
 	}
 	
 	
