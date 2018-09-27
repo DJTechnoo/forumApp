@@ -36,10 +36,27 @@ class Users extends Controller {
 		}
 	}
 
+
+
+
 	public function login(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			$data = [
+				"fullname" => trim($_POST["name"]),
+				"password" => trim($_POST["password"])
+			];
 
-			
+			if($this->userModel->withThisName($data["fullname"])){
+				$loggedInUser = $this->userModel->login($data["fullname"], $data["password"]);
+				if($loggedInUser){
+
+				// AT THIS POINT THE USER IS SUCCESSFULLY LOGGED IN
+
+				
+				}else{
+					$this->view("users/login");
+				}
+			}	
 		}else{
 			$data = [
 					"fullname"		=> "",

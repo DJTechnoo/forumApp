@@ -27,6 +27,20 @@ class User {
 	}
 
 
+	// Return user row if password match
+	public function login($fullname, $password){
+		$this->db->query("SELECT * FROM users WHERE fullname = :fullname");
+		$this->db->bind(":fullname", $fullname);
+		$row = $this->db->single();
+		$hashedPassword = $row->password;
+
+		if(password_verify($password, $hashedPassword)){
+			return $row;
+		}
+		return false;
+	}
+
+
 }
 
 

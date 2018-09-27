@@ -9,3 +9,6 @@
 <li>
 	<a href="<?php echo URL; ?>/users/register">Register</a>
 </li>
+<li>
+	<a href="<?php echo URL; ?>/users/login">Login</a>
+</li>
