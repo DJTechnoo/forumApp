@@ -8,11 +8,10 @@
 <?php if(isset($_SESSION['user_id'])): ?>
 
 	<li>
-		<a href="<?php echo URL; ?>/users/logout">Logout</a>
+		<a href="<?php echo URL; ?>/threads/index">Threads</a>
 	</li>
-
 	<li>
-		<a href="<?php echo URL; ?>/posts/index">Posts</a>
+		<a href="<?php echo URL; ?>/users/logout">Logout</a>
 	</li>
 
 
