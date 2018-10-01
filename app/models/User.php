@@ -8,12 +8,20 @@ class User {
 		$this->db = new Database();
 	}
 
-	public function withThisName($email){
+	public function withThisName($username){
+		$this->db->query("SELECT * FROM users WHERE username LIKE :username");
+		$this->db->bind(":username", $username);
+		$row = $this->db->single();
+		return ($this->db->rowCount() > 0);
+
+	}
+
+
+	public function withThisEmail($email){
 		$this->db->query("SELECT * FROM users WHERE email LIKE :email");
 		$this->db->bind(":email", $email);
 		$row = $this->db->single();
 		return ($this->db->rowCount() > 0);
-
 	}
 
 

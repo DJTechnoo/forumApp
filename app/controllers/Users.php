@@ -18,7 +18,9 @@ class Users extends Controller {
 			];
 
 
-			if($this->userModel->withThisName($data["username"])){
+			// Check to see if either username or email is taken
+			if($this->userModel->withThisName($data["username"])|| $this->userModel->withThisEmail($data["email"]))	
+			{
 				$this->view("users/taken", $data);
 			}else{
 				$data["hash"] = password_hash($data["hash"], PASSWORD_DEFAULT);
