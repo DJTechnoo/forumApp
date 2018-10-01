@@ -48,7 +48,7 @@ class Users extends Controller {
 				"hash" => trim($_POST["hash"])
 			];
 
-			if($this->userModel->withThisName($data["email"])){
+			if($this->userModel->withThisEmail($data["email"])){
 				$loggedInUser = $this->userModel->login($data["email"], $data["hash"]);
 				if($loggedInUser){
 
