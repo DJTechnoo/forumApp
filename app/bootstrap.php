@@ -2,6 +2,7 @@
 
 require_once "config/config.php";
 require_once "helper/helpfunctions.php";
+require_once "helper/sessionHelper.php";
 /*
 
 require_once "libraries/Core.php";

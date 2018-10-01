@@ -8,9 +8,9 @@ class User {
 		$this->db = new Database();
 	}
 
-	public function withThisName($name){
-		$this->db->query("SELECT * FROM users WHERE fullname LIKE :name");
-		$this->db->bind(":name", $name);
+	public function withThisName($email){
+		$this->db->query("SELECT * FROM users WHERE email LIKE :email");
+		$this->db->bind(":email", $email);
 		$row = $this->db->single();
 		return ($this->db->rowCount() > 0);
 
@@ -18,21 +18,21 @@ class User {
 
 
 	public function register($data){
-		$this->db->query("INSERT INTO users (fullname, password, birthyear)
-						 VALUES (:fullname, :password, :birthyear)");
-		$this->db->bind(":fullname", $data["fullname"]);
-		$this->db->bind(":password", $data["password"]);
-		$this->db->bind(":birthyear", $data["birthyear"]);
+		$this->db->query("INSERT INTO users (email, hash, username)
+						 VALUES (:email, :hash, :username)");
+		$this->db->bind(":email", $data["email"]);
+		$this->db->bind(":hash", $data["hash"]);
+		$this->db->bind(":username", $data["username"]);
 		$this->db->execute();
 	}
 
 
 	// Return user row if password match
-	public function login($fullname, $password){
-		$this->db->query("SELECT * FROM users WHERE fullname = :fullname");
-		$this->db->bind(":fullname", $fullname);
+	public function login($email, $password){
+		$this->db->query("SELECT * FROM users WHERE email = :email");
+		$this->db->bind(":email", $email);
 		$row = $this->db->single();
-		$hashedPassword = $row->password;
+		$hashedPassword = $row->hash;
 
 		if(password_verify($password, $hashedPassword)){
 			return $row;

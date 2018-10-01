@@ -12,24 +12,24 @@ class Users extends Controller {
 
 			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data = [
-					"fullname"		=> trim($_POST["name"]),
-					"password"		=> trim($_POST["password"]),
-					"birthyear"	=> trim($_POST["birthyear"])
+					"email"		=> trim($_POST["email"]),
+					"hash"		=> trim($_POST["hash"]),
+					"username"	=> trim($_POST["username"])
 			];
 
 
-			if($this->userModel->withThisName($data["fullname"])){
+			if($this->userModel->withThisName($data["username"])){
 				$this->view("users/taken", $data);
 			}else{
-				$data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
+				$data["hash"] = password_hash($data["hash"], PASSWORD_DEFAULT);
 				$this->userModel->register($data);
 				redirect("users/login");
 			}
 		
 		}else{
 			$data = [
-				"name"		=> "",
-				"birthyear"	=> ""
+				"username"		=> "",
+				"email"	=> ""
 			];
 
 			$this->view("users/register", $data);
@@ -42,26 +42,27 @@ class Users extends Controller {
 	public function login(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			$data = [
-				"fullname" => trim($_POST["name"]),
-				"password" => trim($_POST["password"])
+				"email" => trim($_POST["email"]),
+				"hash" => trim($_POST["hash"])
 			];
 
-			if($this->userModel->withThisName($data["fullname"])){
-				$loggedInUser = $this->userModel->login($data["fullname"], $data["password"]);
+			if($this->userModel->withThisName($data["email"])){
+				$loggedInUser = $this->userModel->login($data["email"], $data["hash"]);
 				if($loggedInUser){
 
 				// AT THIS POINT THE USER IS SUCCESSFULLY LOGGED IN
+					$this->createSession($loggedInUser);
 
 				
 				}else{
-					$this->view("users/login");
+					$this->view("users/login", $data);
 				}
-			}	
+			} else $this->view("users/login", $data);		
 		}else{
 			$data = [
-					"fullname"		=> "",
-					"password"		=> "",
-					"birthyear"		=> ""
+					"email"		=> "",
+					"hash"		=> "",
+					"username"		=> ""
 			];	
 
 			$this->view("users/login", $data);
@@ -69,6 +70,26 @@ class Users extends Controller {
 	}
 
 
+
+	public function logout(){
+
+		unset($_SESSION['user_id']);
+		unset($_SESSION['user_name']);
+		unset($_SESSION['user_year']);
+		session_destroy();
+
+		redirect("users/login");
+	}
+
+
+
+	public function createSession($user){
+		
+		$_SESSION['user_id'] = $user->userid;
+		$_SESSION['user_name'] = $user->username;
+		$_SESSION['user_email'] = $user->email;
+		redirect("pages/index");
+	}
 
 }
 
