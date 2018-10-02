@@ -16,6 +16,14 @@ class Thread {
 		return $allThreads;
 	}
 
+	public function insertThread($data){
+		$this->db->query("INSERT INTO thread (threadname, userid)
+						 VALUES (:threadname, :userid)");
+		$this->db->bind(":threadname", $data["threadname"]);
+		$this->db->bind(":userid", $data["userid"]);
+		$this->db->execute();
+	}
+
 }
 
 
