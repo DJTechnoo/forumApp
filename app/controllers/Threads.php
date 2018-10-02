@@ -13,6 +13,10 @@ class Threads extends Controller {
 		$data["threads"] = $this->threadModel->getAllThreads();
 		$this->view("/threads/index", $data);
 	}
+
+	public function listPosts($threadId){
+		echo "posts from $threadId <br>";
+	}
 }
 
 
