@@ -14,7 +14,9 @@ class Users extends Controller {
 			$data = [
 					"email"		=> trim($_POST["email"]),
 					"hash"		=> trim($_POST["hash"]),
-					"username"	=> trim($_POST["username"])
+					"username"	=> trim($_POST["username"]),
+					"firstname"	=> trim($_POST["firstname"]),
+					"lastname"	=> trim($_POST["lastname"])
 			];
 
 

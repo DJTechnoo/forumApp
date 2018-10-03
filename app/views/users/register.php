@@ -2,6 +2,10 @@
 <h1>Register</h1>
 <h3>Please fill out the form below to register with us</h3>
 <form action="<?php echo URL;?>/users/register" method="post">
+	<label for="firstname">Firstname: *</label>
+	<input type="text" name="firstname">
+	<label for="lastname">Lastname: *</label>
+	<input type="text" name="lastname">
 	<label for="email">Email: *</label>
 	<input type="text" name="email">
 	<label for="username">Username: *</label>

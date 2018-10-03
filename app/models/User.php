@@ -26,11 +26,13 @@ class User {
 
 
 	public function register($data){
-		$this->db->query("INSERT INTO users (email, hash, username)
-						 VALUES (:email, :hash, :username)");
+		$this->db->query("INSERT INTO users (email, hash, username, firstname, lastname)
+						 VALUES (:email, :hash, :username, :firstname, :lastname)");
 		$this->db->bind(":email", $data["email"]);
 		$this->db->bind(":hash", $data["hash"]);
 		$this->db->bind(":username", $data["username"]);
+		$this->db->bind(":firstname", $data["firstname"]);
+		$this->db->bind(":lastname", $data["lastname"]);
 		$this->db->execute();
 	}
 
