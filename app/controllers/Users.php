@@ -19,9 +19,14 @@ class Users extends Controller {
 					"lastname"	=> trim($_POST["lastname"])
 			];
 
-
+			
+			// Check to see that all fields are filled
 			// Check to see if either username or email is taken
-			if($this->userModel->withThisName($data["username"])|| $this->userModel->withThisEmail($data["email"]))	
+			if(empty($data["email"]) || empty($data["username"]) || empty($data["firstname"]) || empty($data["lastname"]) || empty($data["hash"]))
+			{
+				$this->view("users/empty");
+				
+			}elseif($this->userModel->withThisName($data["username"])|| $this->userModel->withThisEmail($data["email"]))
 			{
 				$this->view("users/taken", $data);
 			}else{
@@ -32,8 +37,10 @@ class Users extends Controller {
 		
 		}else{
 			$data = [
-				"username"		=> "",
-				"email"	=> ""
+				"username"	=> "",
+				"email"		=> "",
+				"firstname"	=> "",
+				"lastname"	=> ""
 			];
 
 			$this->view("users/register", $data);
