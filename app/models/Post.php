@@ -22,6 +22,16 @@ class Post {
 		return $allPosts;
 	}
 
+	
+	public function threadExists($id){
+		$this->db->query("SELECT * FROM thread WHERE threadid LIKE :threadid");
+		$this->db->bind(":threadid", $id);
+		$row = $this->db->single();
+		return ($this->db->rowCount() > 0);
+	}
+
+
+
 
 	public function insertPost($data){
 		$this->db->query("INSERT INTO post (title, text, userid, threadid, date)
