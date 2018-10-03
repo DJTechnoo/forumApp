@@ -28,16 +28,33 @@
 		background-color: #111;
 	}
 
+	h1 {
+		color: white;
+	}
+	
+	table, tr, th, td {
+		border: 1px solid grey;
+	}
+	th, td {
+		padding: 5px;
+	}
+	th {
+		color: white;
+		width: 100%;
+	}
 	table {
 		background-color: #333;
 	}
-
 	th {
-		color: white;
-		font-weight: normal;
+		text-align: left;
 	}
-
-	h1 {
+	tr {
+		border-color: grey;
+	}
+	tr:hover {
+		background-color: #111;
+	}
+	td {
 		color: white;
 	}
 </style>
