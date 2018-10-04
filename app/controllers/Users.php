@@ -21,12 +21,17 @@ class Users extends Controller {
 
 			
 			// Check to see that all fields are filled
+			// Check to see if the email is valid
 			// Check to see if either username or email is taken
 			if(empty($data["email"]) || empty($data["username"]) || empty($data["firstname"]) || empty($data["lastname"]) || empty($data["hash"]))
 			{
 				$this->view("users/empty");
 				
-			}elseif($this->userModel->withThisName($data["username"])|| $this->userModel->withThisEmail($data["email"]))
+			}elseif(!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
+			{
+				$this->view("users/email", $data);
+			}
+			elseif($this->userModel->withThisName($data["username"]) || $this->userModel->withThisEmail($data["email"]))
 			{
 				$this->view("users/taken", $data);
 			}else{

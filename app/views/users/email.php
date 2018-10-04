@@ -1,4 +1,4 @@
 <?php require APPROOT . "/views/inc/header.php"; ?>
-<?php //require APPROOT . "/views/inc/captctha.php"; ?>
-<h1><?php echo $data["title"];?></h1>
+<h1>Not a valid email address</h1>
+<p>The email <?php echo $data["email"]; ?> is not valid.</p>
 <?php require APPROOT . "/views/inc/footer.php"; ?>
