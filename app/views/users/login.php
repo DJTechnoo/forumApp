@@ -1,7 +1,4 @@
 <?php require APPROOT . "/views/inc/header.php"; ?>
-<style>
-
-</style>
 <div class="login">
 <form action="<?php echo URL;?>/users/login" method="post">
 	<input type="text" placeholder="Email" name="email">  
