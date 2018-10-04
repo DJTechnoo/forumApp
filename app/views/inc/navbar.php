@@ -2,8 +2,6 @@
 	body {
 		background-color: grey;
 	}
-	
-	
 	ul {
 		list-style-type: none;
 		margin: 0;
@@ -11,12 +9,10 @@
 		overflow: hidden;
 		background-color: #333;
 	}
-
 	li {
 		float:  left;
 		display:inline;
 	}
-
 	li a {
 		display: block;
 		color: white;
@@ -24,15 +20,15 @@
 		padding: 14px 16px;
 		text-decoration: none;
 	}
-
 	li a:hover {
 		background-color: #111;
 	}
-
 	h1 {
 		color: white;
 	}
-	
+	p {
+		color: white;
+	}
 	table, tr, th, td {
 		border: 1px solid grey;
 	}
