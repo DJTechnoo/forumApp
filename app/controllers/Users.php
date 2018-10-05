@@ -104,6 +104,7 @@ class Users extends Controller {
 		$_SESSION['user_id'] = $user->userid;
 		$_SESSION['user_name'] = $user->username;
 		$_SESSION['user_email'] = $user->email;
+		$_SESSION['user_priviliege'] = $user->userpriviliege;
 		redirect("threads/index");
 	}
 
