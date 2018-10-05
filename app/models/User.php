@@ -51,6 +51,13 @@ class User {
 	}
 
 
+    public function updatePassword($data) {
+        $this->db->query("UPDATE users SET salt = :salt, hash = :hash WHERE userid = :userid");
+        $this->db->bind(":userid", $data["userid"]);
+        $this->db->bind(":salt", $data["salt"]);
+        $this->db->bind(":hash", $data["hash"]);
+        $this->db->execute();
+    }
 }
 
 

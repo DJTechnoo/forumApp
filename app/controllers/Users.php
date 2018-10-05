@@ -109,7 +109,6 @@ class Users extends Controller {
 	}
 
 
-
 	public function createSession($user){
 		
 		$_SESSION['user_id'] = $user->userid;
@@ -118,6 +117,29 @@ class Users extends Controller {
 		redirect("threads/index");
 	}
 
+    public function updatePassword() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                "hash" => trim($_POST["hash"])
+            ];
+
+            if (empty($data["hash"])) {
+                $this->view("users/empty");
+
+            } else {
+                #$salt = random_bytes(15); //Generating 15 random bytes
+                #$salt = base64_encode($salt); //Converting the random bytes to base64
+                #$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
+                $salt = salt();
+                $data["hash"] = crypt($data["hash"], '$2y$12$'.$salt.'$');
+                $this->userModel->updatePassword($data);
+                redirect("users/home");     #Evt. redirect tilbake til profil page
+
+            }
+        }
+    }
 }
 
 
