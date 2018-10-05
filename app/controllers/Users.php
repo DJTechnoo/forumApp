@@ -122,10 +122,11 @@ class Users extends Controller {
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data = [
-                "hash" => trim($_POST["hash"])
+                "password" => trim($_POST["password"]),
+                "userid" => $_SESSION["user_id"]
             ];
 
-            if (empty($data["hash"])) {
+            if (empty($data["password"])) {
                 $this->view("users/empty");
 
             } else {
@@ -133,12 +134,12 @@ class Users extends Controller {
                 #$salt = base64_encode($salt); //Converting the random bytes to base64
                 #$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
                 $salt = salt();
-                $data["hash"] = crypt($data["hash"], '$2y$12$'.$salt.'$');
+                $data["hash"] = crypt($data["password"], '$2y$12$'.$salt.'$');
                 $this->userModel->updatePassword($data);
                 redirect("users/home");     #Evt. redirect tilbake til profil page
 
             }
-        }
+        }else $this->view("users/updatepwd");
     }
 }
 
