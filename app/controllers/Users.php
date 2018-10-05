@@ -2,11 +2,11 @@
 
 class Users extends Controller {
 	
+	
 	public function __construct(){
 		$this->userModel = $this->model("User");
 	}
-
-
+	
 	public function register(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -33,19 +33,30 @@ class Users extends Controller {
 			}
 			elseif($this->userModel->withThisName($data["username"]) || $this->userModel->withThisEmail($data["email"]))
 			{
-				$this->view("users/taken", $data);
-			}else{
-				$data["hash"] = password_hash($data["hash"], PASSWORD_DEFAULT);
+				$this->view("users/taken", $data);	
+			}
+			
+			else
+			{
+				//$salt = random_bytes(15); //Generating 15 random bytes
+				//$salt = base64_encode($salt); //Converting the random bytes to base64 
+				//$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
+				$salt = salt();
+				$data["hash"] = crypt($data["hash"], '$2y$12$'.$salt.'$');
 				$this->userModel->register($data);
 				redirect("users/login");
 			}
 		
-		}else{
+		}
+		
+		else
+		{
 			$data = [
 				"username"	=> "",
 				"email"		=> "",
 				"firstname"	=> "",
-				"lastname"	=> ""
+				"lastname"	=> "",
+				"hash"		=> "",
 			];
 
 			$this->view("users/register", $data);
@@ -98,7 +109,6 @@ class Users extends Controller {
 	}
 
 
-
 	public function createSession($user){
 		
 		$_SESSION['user_id'] = $user->userid;
@@ -108,6 +118,30 @@ class Users extends Controller {
 		redirect("threads/index");
 	}
 
+    public function updatePassword() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                "password" => trim($_POST["password"]),
+                "userid" => $_SESSION["user_id"]
+            ];
+
+            if (empty($data["password"])) {
+                $this->view("users/empty");
+
+            } else {
+                #$salt = random_bytes(15); //Generating 15 random bytes
+                #$salt = base64_encode($salt); //Converting the random bytes to base64
+                #$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
+                $salt = salt();
+                $data["hash"] = crypt($data["password"], '$2y$12$'.$salt.'$');
+                $this->userModel->updatePassword($data);
+                redirect("users/home");     #Evt. redirect tilbake til profil page
+
+            }
+        }else $this->view("users/updatepwd");
+    }
 }
 
 
