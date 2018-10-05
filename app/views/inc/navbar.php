@@ -54,6 +54,10 @@
 	td {
 		color: white;
 	}
+	a {
+		color: white;
+		text-decoration: none;
+	}
 	.login {
 		background: #333;
 		border: 1px solid #42464b;
@@ -170,6 +174,9 @@
 	</li>
 <?php if(isset($_SESSION['user_id'])): ?>
 	
+	<li>
+		<a href="<?php echo URL; ?>/users/profil">Profile</a>
+	</li>
 	<li>
 		<a href="<?php echo URL; ?>/users/logout">Logout</a>
 	</li>

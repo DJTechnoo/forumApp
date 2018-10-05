@@ -2,15 +2,30 @@
 <h1><?php echo $data["title"];?></h1>
 
 <h2>
-		<a href="<?php echo URL; ?>/posts/addpost/<?php echo $data["currentThread"]; ?>">New Post</a>
+	<li><a href="<?php echo URL; ?>/posts/addpost/<?php echo $data["currentThread"]; ?>"><p>New Post</p></a></li><br/><br/><br/><br/>
 </h2>
-
+<?php if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator') { ?>
+	<form action="" method="post">
+		<input type="submit" value="Delete thread"><br/><br/>
+<?php }?>
+<table>
+<tr>
+	<th class="size" scope="col"><font size="+3">Title</font></th>
+	<th scope="col"><font size="+3">Created by</font></th>
+	<th scope="col"><font size="+3">Date</font></th>
+</tr>
 
 <?php foreach($data["posts"] as $post) :?>
-<li>
-	<?php echo "	<h3>$post->title</h3> <br>"; 
-		  echo "	$post->text <br>";
-		  echo "Written by $post->username on $post->date <br><br>";?>
-</li>
+<tr>
+		  <td><?php echo "<font size='+2'> $post->title </font>" ?> </td> <!-- Add comments link on this line -->
+		  <td><?php echo "<font size='+2'> $post->username </font>" ?></td>
+		  <td><?php echo "<font size='-1'> $post->date </font>" ?> </td>
+</tr>
 <?php endforeach; ?>
+</table>
 <?php require APPROOT . "/views/inc/footer.php"; ?>
+<style>
+	.size {
+		width: 80%;
+	}
+</style>
