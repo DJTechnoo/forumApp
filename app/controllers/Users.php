@@ -2,10 +2,11 @@
 
 class Users extends Controller {
 	
+	
 	public function __construct(){
 		$this->userModel = $this->model("User");
 	}
-
+	
 	public function register(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -37,9 +38,10 @@ class Users extends Controller {
 			
 			else
 			{
-				$salt = random_bytes(15); //Generating 15 random bytes
-				$salt = base64_encode($salt); //Converting the random bytes to base64 
-				$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
+				//$salt = random_bytes(15); //Generating 15 random bytes
+				//$salt = base64_encode($salt); //Converting the random bytes to base64 
+				//$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
+				$salt = salt();
 				$data["hash"] = crypt($data["hash"], '$2y$12$'.$salt.'$');
 				$this->userModel->register($data);
 				redirect("users/login");
