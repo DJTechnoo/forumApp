@@ -77,7 +77,7 @@
 		text-shadow: 0 -1px 0 rgba(0,0,0,0), 0 1px 0 #fff;
 	}
 
-	input[type="password"], input[type="text"] {
+	input[type="password"], input[type="text"], textarea {
 		background: url('http://i.minus.com/ibhqW9Buanohx2.png') center left no-repeat, linear-gradient(top, #d6d7d7, #dee0e0);
 		border-radius: 4px;
 		box-shadow: 0 1px black;
@@ -89,7 +89,7 @@
 		transition: box-shadow 0.3s;
 		width: 240px;
 	}
-	input[type="password"]:focus, input[type="text"]:focus {
+	input[type="password"]:focus, input[type="text"]:focus, textarea:focus {
 		box-shadow: 0 0 4px 1px;
 		outline: 0;
 	}
