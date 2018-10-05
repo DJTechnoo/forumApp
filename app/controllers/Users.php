@@ -6,7 +6,6 @@ class Users extends Controller {
 		$this->userModel = $this->model("User");
 	}
 
-
 	public function register(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -33,19 +32,29 @@ class Users extends Controller {
 			}
 			elseif($this->userModel->withThisName($data["username"]) || $this->userModel->withThisEmail($data["email"]))
 			{
-				$this->view("users/taken", $data);
-			}else{
-				$data["hash"] = password_hash($data["hash"], PASSWORD_DEFAULT);
+				$this->view("users/taken", $data);	
+			}
+			
+			else
+			{
+				$salt = random_bytes(15); //Generating 15 random bytes
+				$salt = base64_encode($salt); //Converting the random bytes to base64 
+				$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
+				$data["hash"] = crypt($data["hash"], '$2y$12$'.$salt.'$');
 				$this->userModel->register($data);
 				redirect("users/login");
 			}
 		
-		}else{
+		}
+		
+		else
+		{
 			$data = [
 				"username"	=> "",
 				"email"		=> "",
 				"firstname"	=> "",
-				"lastname"	=> ""
+				"lastname"	=> "",
+				"hash"		=> "",
 			];
 
 			$this->view("users/register", $data);
