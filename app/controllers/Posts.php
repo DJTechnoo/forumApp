@@ -41,6 +41,18 @@ class Posts extends Controller {
 	}
 
 
+	public function seePost($id){
+		$comments = $this->postModel->getCommentsOfPost($id);
+		$title	  = $this->postModel->getTitleOfPost($id);
+		$data = [
+			"title" => $title->posttitle,
+			"comments" => $comments,
+			"currentPost" => $id
+		];
+		$this->view("posts/comments", $data);
+	}
+
+
 
 } 
 
