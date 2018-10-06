@@ -45,6 +45,7 @@ class Post {
 	}
 
 
+
 	public function getTitleOfPost($id){
 		$this->db->query(	"SELECT title as posttitle
 							 FROM POST
@@ -66,6 +67,17 @@ class Post {
 		$comments = $this->db->resultSet();
 		return $comments;
 
+	}
+
+
+	public function insertComment($data){
+		$this->db->query("INSERT INTO comment (text, userid, postid, date)
+								   VALUES (:text, :userid, :postid, :date)");
+		$this->db->bind(":text", $data["commenttext"]);
+		$this->db->bind(":userid", $data["userid"]);
+		$this->db->bind(":postid", $data["postid"]);
+		$this->db->bind(":date", date('Y-m-d G:i:s'));
+		$this->db->execute();
 	}
 
 }

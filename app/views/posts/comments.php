@@ -1,6 +1,8 @@
 <?php require APPROOT . "/views/inc/header.php"; ?>
 <h1><?php echo $data["title"];?></h1>
 
+<a href="<?php echo URL; ?>/posts/addcomment/<?php echo $data['currentPost'];?>" >Add Comment</a>
+
 <table>
 <tr>
 	<th class="size" scope="col"><font size="+3">Comment</font></th>

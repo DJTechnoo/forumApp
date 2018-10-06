@@ -54,6 +54,33 @@ class Posts extends Controller {
 
 
 
+	public function addComment($id){
+	
+
+		if(isset($_SESSION["user_id"])){//	&& $this->postModel->threadExists($id)){
+			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+				$data = [
+						"commenttext"	=> trim($_POST["commenttext"]),
+						"userid"	=> $_SESSION["user_id"],
+						"postid"	=> $id
+				];
+
+				$this->postModel->insertComment($data);		// add thread to db
+				redirect("posts/seepost/" . $id);
+			}else {
+				$data = ["currentPost" => $id];
+				$this->view("/posts/addcomment", $data);
+			}
+		}else	redirect("posts/seePost/" . $id);
+	}
+
+
+
+
+
+
 } 
 
 ?>
