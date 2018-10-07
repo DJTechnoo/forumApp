@@ -27,7 +27,7 @@ require APPROOT . "/controllers/Threads.php";
 
 <?php foreach($data["posts"] as $post) :?>
 <tr>
-		  <td><?php echo "<font size='+2'> $post->title </font>" ?> </td> <!-- Add comments link on this line -->
+		  <td><a href="<?php echo URL;?>/posts/seepost/<?php echo $post->postid;?>"><?php echo "<font size='+2'> $post->title </font>" ?></a> </td> <!-- Add comments link on this line -->
 		  <td><?php echo "<font size='+2'> $post->username </font>" ?></td>
 		  <td><?php echo "<font size='-1'> $post->date </font>" ?> </td>
 </tr>

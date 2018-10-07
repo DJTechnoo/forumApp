@@ -11,7 +11,7 @@ class Post {
 
 
 	public function getPostsOfThread($id){
-		$this->db->query(	"SELECT post.title, post.date, users.username, thread.threadid, post.text
+		$this->db->query(	"SELECT post.postid, post.title, post.date, users.username, thread.threadid, post.text
 							FROM post
 							JOIN thread ON thread.threadid = post.threadid
 							JOIN users ON post.userid = users.userid
@@ -49,6 +49,42 @@ class Post {
 		$this->db->bind(":del",$del);
 		$this->db->execute();
     }*/
+
+
+
+	public function getTitleOfPost($id){
+		$this->db->query(	"SELECT title as posttitle
+							 FROM POST
+							 WHERE postid = :id");
+		$this->db->bind(":id", $id);
+		$row = $this->db->single();
+		return $row;	
+	}
+
+
+	public function getCommentsOfPost($id){
+		$this->db->query(	"SELECT post.title as posttitle, comment.date, comment.commentid, comment.text, users.username
+							FROM comment
+							JOIN post ON post.postid = comment.postid
+							JOIN users ON comment.userid = users.userid
+							WHERE post.postid = :id
+							ORDER BY comment.date");
+		$this->db->bind(":id", $id);
+		$comments = $this->db->resultSet();
+		return $comments;
+
+	}
+
+
+	public function insertComment($data){
+		$this->db->query("INSERT INTO comment (text, userid, postid, date)
+								   VALUES (:text, :userid, :postid, :date)");
+		$this->db->bind(":text", $data["commenttext"]);
+		$this->db->bind(":userid", $data["userid"]);
+		$this->db->bind(":postid", $data["postid"]);
+		$this->db->bind(":date", date('Y-m-d G:i:s'));
+		$this->db->execute();
+	}
 
 }
 

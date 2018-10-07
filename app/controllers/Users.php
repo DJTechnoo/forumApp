@@ -140,7 +140,7 @@ class Users extends Controller {
             ];
 
             if (empty($data["password"])) {
-                $this->view("users/empty");
+                $this->view("users/password");
 
             } else {
                 #$salt = random_bytes(15); //Generating 15 random bytes

@@ -10,11 +10,11 @@ class Thread {
 	}
 
 
-	public function getAllThreads(){
-		$this->db->query("SELECT * FROM thread");
-		$allThreads = $this->db->resultSet();
-		return $allThreads;
-	}
+    public function getAllThreads(){
+        $this->db->query("SELECT * FROM thread ORDER BY threadid DESC");
+        $allThreads = $this->db->resultSet();
+        return $allThreads;
+    }
 
 	public function insertThread($data){
 		$this->db->query("INSERT INTO thread (threadname, userid)
