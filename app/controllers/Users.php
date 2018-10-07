@@ -117,13 +117,25 @@ class Users extends Controller {
 		$_SESSION['user_priviliege'] = $user->userpriviliege;
 		redirect("threads/index");
 	}
+	
+	public function displayProfile(){
+        $data = [
+            "username" => $this->userModel->displayUsername($_SESSION["user_id"]),
+            "userpriviliege" => $this->userModel->displayUserpriviliege($_SESSION["user_id"]),
+            "firstname" => $this->userModel->displayFirstname($_SESSION["user_id"]),
+            "lastname" => $this->userModel->displayLastname($_SESSION["user_id"]),
+            "email" => $this->userModel->displayEmail($_SESSION["user_id"]),
+        ];
+        $this->view("users/profile", $data);
+        
+    }
 
     public function updatePassword() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data = [
-                "password" => trim($_POST["password"]),
+                "password" => trim($_POST["pwd"]),
                 "userid" => $_SESSION["user_id"]
             ];
 
@@ -137,7 +149,7 @@ class Users extends Controller {
                 $salt = salt();
                 $data["hash"] = crypt($data["password"], '$2y$12$'.$salt.'$');
                 $this->userModel->updatePassword($data);
-                redirect("users/home");     #Evt. redirect tilbake til profil page
+                redirect("pages/index");     #Evt. redirect tilbake til profil page
 
             }
         }else $this->view("users/updatepwd");

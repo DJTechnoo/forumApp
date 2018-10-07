@@ -43,6 +43,12 @@ class Post {
 		$this->db->bind(":date", date('Y-m-d G:i:s'));
 		$this->db->execute();
 	}
+	
+	/*public function deletePost($del){
+        $this->db->query("DELETE FROM post WHERE threadid=':del'");
+		$this->db->bind(":del",$del);
+		$this->db->execute();
+    }*/
 
 }
 

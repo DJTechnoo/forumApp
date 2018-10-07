@@ -9,6 +9,7 @@
 	<input type="text" name="username" placeholder="Username *">
 	<input type="password" name="hash" placeholder="Password *">
 	<input type="submit" value="Register">
+
 <?php require APPROOT . "/views/inc/footer.php"; ?>
 
 <style>

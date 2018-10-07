@@ -1,13 +1,23 @@
-<?php require APPROOT . "/views/inc/header.php"; ?>
+<?php require APPROOT . "/views/inc/header.php";
+require APPROOT . "/controllers/Threads.php";
+?>
 <h1><?php echo $data["title"];?></h1>
 
 <h2>
 	<li><a href="<?php echo URL; ?>/posts/addpost/<?php echo $data["currentThread"]; ?>"><p>New Post</p></a></li><br/><br/><br/><br/>
 </h2>
-<?php if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator') { ?>
-	<form action="" method="post">
-		<input type="submit" value="Delete thread"><br/><br/>
-<?php }?>
+<?php// if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator') { ?>
+	<!--<form action="" method="post">
+		<input type="submit" name="delButton" id="delButton" value="Delete post"><br/><br/> -->
+<?php //}?>
+
+<?php	//if(isset($_POST['delButton'])) { 
+			//$this->deletePost($data["currentThread"]) /*redirect("deletethread/".  $data["currentThread"])*/;
+			//$_POST['delButton'] = $post->threadid;
+		//}
+	//echo $data["currentThread"];
+		?>
+		
 <table>
 <tr>
 	<th class="size" scope="col"><font size="+3">Title</font></th>

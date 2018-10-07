@@ -50,7 +50,49 @@ class User {
 		return false;
 	}
 
+	/*public function displayProfile($id) {
+        $this->db->query( "SELECT username, userpriviliege, firstname, lastname, email FROM users WHERE userid = :userid");
+        $this->db->bind(":userid", $id);
+        $row = $this->db->single();
+        return $row;
 
+    }*/
+	
+	public function displayUsername($id) {
+        $this->db->query("SELECT username FROM users WHERE userid = :userid");
+        $this->db->bind("userid", $id);
+        $user = $this->db->single();
+        return $user; 
+    }
+
+    public function displayUserpriviliege($id) {
+        $this->db->query("SELECT userpriviliege FROM users WHERE userid = :userid");
+        $this->db->bind("userid", $id);
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function displayFirstname($id) {
+        $this->db->query("SELECT firstname FROM users WHERE userid = :userid");
+        $this->db->bind("userid", $id);
+        $row = $this->db->single();
+        return $row;
+    }
+    
+	public function displayLastname($id) {
+        $this->db->query("SELECT lastname FROM users WHERE userid = :userid");
+        $this->db->bind("userid", $id);
+        $row = $this->db->single();
+        return $row;
+    }
+	
+    public function displayEmail($id) {
+        $this->db->query("SELECT email FROM users WHERE userid = :userid");
+        $this->db->bind("userid", $id);
+        $row = $this->db->single();
+        return $row;
+    }
+	
     public function updatePassword($data) {
         $this->db->query("UPDATE users SET hash = :hash WHERE userid = :userid");
         $this->db->bind(":userid", $data["userid"]);

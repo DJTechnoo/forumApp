@@ -39,8 +39,14 @@ class Posts extends Controller {
 			}
 		}else	redirect("users/login");
 	}
-
-
+	
+	/*public function deletePost($del) {
+		if ($_SERVER['REQUEST_METHOD'] == 'POST')
+		{
+			$this->postModel->deletePost($del);
+			redirect("posts/allposts");
+		}
+	}*/
 
 } 
 

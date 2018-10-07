@@ -175,7 +175,7 @@
 <?php if(isset($_SESSION['user_id'])): ?>
 	
 	<li>
-		<a href="<?php echo URL; ?>/users/profil">Profile</a>
+		<a href="<?php echo URL; ?>/users/displayProfile">Profile</a>
 	</li>
 	<li>
 		<a href="<?php echo URL; ?>/users/logout">Logout</a>
