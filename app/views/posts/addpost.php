@@ -14,6 +14,6 @@
 	}
 	textarea {
 		margin-left: 2em;
-		height: 160px;
+		height: 170px;
 	}
 </style>

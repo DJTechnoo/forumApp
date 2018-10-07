@@ -8,6 +8,6 @@ define("DB_PASSWORD", "");
 
 
 define('APPROOT',dirname(dirname(__FILE__)));
-define('URL', "http://10.22.196.26:3307/forumApp/");
+define('URL', "http://localhost/forumApp/");
 define('SITENAME', "SecureForum");
 ?>

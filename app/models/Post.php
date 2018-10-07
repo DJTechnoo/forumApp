@@ -60,6 +60,15 @@ class Post {
 		$row = $this->db->single();
 		return $row;	
 	}
+	
+	public function getTextOfPost($id){
+		$this->db->query(	"SELECT text as posttext
+							 FROM POST
+							 WHERE postid = :id");
+		$this->db->bind(":id", $id);
+		$row = $this->db->single();
+		return $row;	
+	}
 
 
 	public function getCommentsOfPost($id){

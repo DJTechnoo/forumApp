@@ -9,10 +9,10 @@
 <style>
 	.login {
 		width: 300px;
-		height: 380px;
+		height: 330px;
 	}
 	textarea {
 		margin-left: 2em;
-		height: 160px;
+		height: 170px;
 	}
 </style>

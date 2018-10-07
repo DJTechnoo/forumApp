@@ -1,7 +1,10 @@
 <?php require APPROOT . "/views/inc/header.php"; ?>
 <h1><?php echo $data["title"];?></h1>
 
-<a href="<?php echo URL; ?>/posts/addcomment/<?php echo $data['currentPost'];?>" >Add Comment</a>
+<h1>Post text:</h1>
+<h2><?php echo $data["text"];?><h2>
+
+<li><h2><a href="<?php echo URL; ?>/posts/addcomment/<?php echo $data['currentPost'];?>" >Add Comment</a></h2></li><br/><br/><br/><br/><br/><br/>
 
 <table>
 <tr>
@@ -23,5 +26,8 @@
 <style>
 	.size {
 		width: 80%;
+	}
+	h2 {
+		color: white;
 	}
 </style>
