@@ -80,31 +80,31 @@ class Post {
 	}
 	
 	public function deleteComment($del){
-        $this->db->query("DELETE FROM comment WHERE commentid=':del'");
+        $this->db->query("DELETE FROM comment WHERE commentid=:del");
         $this->db->bind(":del",$del);
         $this->db->execute();
     }
 
     public function deleteAllComment($del){
-        $this->db->query("DELETE FROM comment WHERE postid=':del'");
+        $this->db->query("DELETE FROM comment WHERE postid=:del");
         $this->db->bind(":del",$del);
         $this->db->execute();
     }
 	
 	public function deleteAllPost($del){
-        $this->db->query("DELETE FROM post WHERE threadid=':del'");
+        $this->db->query("DELETE FROM post WHERE threadid=:del");
         $this->db->bind(":del",$del);
         $this->db->execute();
     }
 
     public function deletePost($del){
-        $this->db->query("DELETE FROM post WHERE postid=':del'");
+        $this->db->query("DELETE FROM post WHERE postid=:del");
         $this->db->bind(":del",$del);
         $this->db->execute();
     }
 	
 	public function getCommentUserid($commentid) {
-        $this->db->query("SELECT userid FROM comment WHERE commentid=':commentid'");
+        $this->db->query("SELECT userid FROM comment WHERE commentid=:commentid");
         $this->db->bind(":commentid",$commentid);
         $row = $this->db->single();
         return $row;
