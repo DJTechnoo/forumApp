@@ -2,13 +2,11 @@
 
 class Post {
 
-
 	private$db;
 
 	public function __construct(){
 		$this->db = new Database();
 	}
-
 
 	public function getPostsOfThread($id){
 		$this->db->query(	"SELECT post.postid, post.title, post.date, users.username, thread.threadid, post.text
@@ -22,16 +20,12 @@ class Post {
 		return $allPosts;
 	}
 
-	
 	public function threadExists($id){
 		$this->db->query("SELECT * FROM thread WHERE threadid LIKE :threadid");
 		$this->db->bind(":threadid", $id);
 		$row = $this->db->single();
 		return ($this->db->rowCount() > 0);
 	}
-
-
-
 
 	public function insertPost($data){
 		$this->db->query("INSERT INTO post (title, text, userid, threadid, date)
@@ -43,14 +37,6 @@ class Post {
 		$this->db->bind(":date", date('Y-m-d G:i:s'));
 		$this->db->execute();
 	}
-	
-	/*public function deletePost($del){
-        $this->db->query("DELETE FROM post WHERE threadid=':del'");
-		$this->db->bind(":del",$del);
-		$this->db->execute();
-    }*/
-
-
 
 	public function getTitleOfPost($id){
 		$this->db->query(	"SELECT title as posttitle
@@ -70,9 +56,8 @@ class Post {
 		return $row;	
 	}
 
-
 	public function getCommentsOfPost($id){
-		$this->db->query(	"SELECT post.title as posttitle, comment.date, comment.commentid, comment.text, users.username
+		$this->db->query(	"SELECT post.title as posttitle, comment.date, comment.commentid, comment.text, users.username, comment.userid
 							FROM comment
 							JOIN post ON post.postid = comment.postid
 							JOIN users ON comment.userid = users.userid
@@ -84,7 +69,6 @@ class Post {
 
 	}
 
-
 	public function insertComment($data){
 		$this->db->query("INSERT INTO comment (text, userid, postid, date)
 								   VALUES (:text, :userid, :postid, :date)");
@@ -94,8 +78,36 @@ class Post {
 		$this->db->bind(":date", date('Y-m-d G:i:s'));
 		$this->db->execute();
 	}
+	
+	public function deleteComment($del){
+        $this->db->query("DELETE FROM comment WHERE commentid=':del'");
+        $this->db->bind(":del",$del);
+        $this->db->execute();
+    }
 
+    public function deleteAllComment($del){
+        $this->db->query("DELETE FROM comment WHERE postid=':del'");
+        $this->db->bind(":del",$del);
+        $this->db->execute();
+    }
+	
+	public function deleteAllPost($del){
+        $this->db->query("DELETE FROM post WHERE threadid=':del'");
+        $this->db->bind(":del",$del);
+        $this->db->execute();
+    }
+
+    public function deletePost($del){
+        $this->db->query("DELETE FROM post WHERE postid=':del'");
+        $this->db->bind(":del",$del);
+        $this->db->execute();
+    }
+	
+	public function getCommentUserid($commentid) {
+        $this->db->query("SELECT userid FROM comment WHERE commentid=':commentid'");
+        $this->db->bind(":commentid",$commentid);
+        $row = $this->db->single();
+        return $row;
+    }
 }
-
-
 ?>

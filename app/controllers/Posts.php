@@ -85,7 +85,38 @@ class Posts extends Controller {
 			}
 		}else	redirect("posts/seePost/" . $id);
 	}
+	
+	public function deleteAllComment($del) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $this->postModel->deleteAllComment($del);
+            redirect("posts/comments");
+        }
+    }
 
+    public function deleteComment($del) {
+        if($_SESSION["user_id"] === $this->postModel->getCommentUserid($del) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator') {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $this->postModel->deleteComment($del);
+                redirect("posts/comments");
+            }
+        }
+    }
+	
+	public function deleteAllPost($del) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $this->postModel->deleteAllPost($del);
+            redirect("posts/allposts");
+        }
+    }
+
+    public function deletePost($del) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $this->postModel->deletePost($del);
+            redirect("posts/allposts");
+        }
+    }
 } 
-
 ?>

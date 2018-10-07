@@ -40,6 +40,7 @@ class Threads extends Controller {
 			redirect("threads/index");
 		}
 	}*/
+
 }
 
 
