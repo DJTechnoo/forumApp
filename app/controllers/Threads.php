@@ -19,7 +19,7 @@ class Threads extends Controller {
 	}
 
 	public function addThread(){
-		if(isset($_SESSION["user_id"])){
+		if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -33,13 +33,13 @@ class Threads extends Controller {
 			}else $this->view("/threads/addthread", []);
 		}else	redirect("users/login");
 	}
-	
-	/*public function deleteThread($id) {
+
+	public function deleteThread($id) {
 		if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){
 			$this->threadModel->deleteThread($id);
 			redirect("threads/index");
 		}
-	}*/
+	}
 
 }
 

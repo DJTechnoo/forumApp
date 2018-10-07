@@ -18,8 +18,8 @@ require APPROOT . "/controllers/Threads.php";
 	<td><a href="<?php echo URL;?>/posts/seepost/<?php echo $post->postid;?>"><?php echo "<font size='+2'> $post->title </font>" ?></a> </td>
 	<td><?php echo "<font size='+2'> $post->username </font>" ?></td>
 	<td><?php echo "<font size='-1'> $post->date </font>" ?> </td>
-	<?php if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){ ?>
-		<td><a href="<?php echo URL; ?>/post/deleteComment/<?php echo $thread->threadid;?>">Delete</a></td>
+    <?php if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid() &&*/ $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){ ?>
+		<td><a href="<?php echo URL; ?>/post/deletePosts/<?php echo $thread->threadid;?>">Delete</a></td>
 	<?php } ?>
 </tr>
 <?php endforeach; ?>

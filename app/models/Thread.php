@@ -24,11 +24,11 @@ class Thread {
 		$this->db->execute();
 	}
 	
-	/*public function deleteThread($del){
-        $this->db->query("DELETE FROM thread WHERE threadid=':del'");
+	public function deleteThread($del){
+        $this->db->query("DELETE FROM thread WHERE threadid=:del");
 		$this->db->bind(":del",$del);
 		$this->db->execute();
-    }*/
+    }
 
 }
 
