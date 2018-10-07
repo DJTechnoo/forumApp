@@ -44,16 +44,16 @@ class Post {
 							 WHERE postid = :id");
 		$this->db->bind(":id", $id);
 		$row = $this->db->single();
-		return $row;	
+		return $row;
 	}
-	
+
 	public function getTextOfPost($id){
 		$this->db->query(	"SELECT text as posttext
 							 FROM POST
 							 WHERE postid = :id");
 		$this->db->bind(":id", $id);
 		$row = $this->db->single();
-		return $row;	
+		return $row;
 	}
 
 	public function getCommentsOfPost($id){
@@ -78,7 +78,7 @@ class Post {
 		$this->db->bind(":date", date('Y-m-d G:i:s'));
 		$this->db->execute();
 	}
-	
+
 	public function deleteComment($del){
         $this->db->query("DELETE FROM comment WHERE commentid=:del");
         $this->db->bind(":del",$del);
@@ -90,7 +90,7 @@ class Post {
         $this->db->bind(":del",$del);
         $this->db->execute();
     }
-	
+
 	public function deleteAllPost($del){
         $this->db->query("DELETE FROM post WHERE threadid=:del");
         $this->db->bind(":del",$del);
@@ -102,12 +102,21 @@ class Post {
         $this->db->bind(":del",$del);
         $this->db->execute();
     }
-	
+
 	public function getCommentUserid($commentid) {
         $this->db->query("SELECT userid FROM comment WHERE commentid=:commentid");
         $this->db->bind(":commentid",$commentid);
         $row = $this->db->single();
         return $row;
     }
+
+    public function checkComment($postid) {
+        $this->db->query("SELECT commentid FROM comment WHERE postid=:postid");
+        $this->db->bind(":postid",$postid);
+        $row = $this->db->single();
+        return ($this->db->rowcount() > 0);
+    }
+
+
 }
 ?>

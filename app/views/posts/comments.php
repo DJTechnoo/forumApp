@@ -12,19 +12,19 @@
 	<th scope="col"><font size="+3">Posted by</font></th>
 	<th scope="col"><font size="+3">Date</font></th>
 </tr>
-
+  
 
 <?php foreach($data["comments"] as $comment) :?>
 <tr>
 		  <td><?php echo "<font size='+2'> $comment->text </font>" ?></td>
 		  <td><?php echo "<font size='+2'> $comment->username </font>" ?></td>
 		  <td><?php echo "<font size='-1'> $comment->date </font>" ?> </td>
-		  <?php if($_SESSION["user_id"] === $this->postModel->getCommentUserid($data['comments']) || $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){ ?>
-				<td><a href="<?php echo URL; ?>/post/deleteComment/<?php echo $thread->threadid;?>">Delete</a></td>
+		  <?php if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid($data['comments'])*/isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){ ?>
+				<td><a href="<?php echo URL; ?>/Posts/deleteComment/<?php echo $comment->commentid; ?>">Delete</a></td>
 		<?php } ?>
 </tr>
-<?php endforeach; ?>
-</table>
+<?php endforeach;?>
+</table> 
 <?php require APPROOT . "/views/inc/footer.php"; ?>
 <style>
 	.size {

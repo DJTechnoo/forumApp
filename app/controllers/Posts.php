@@ -2,9 +2,9 @@
 
 class Posts extends Controller {
 
-	
+
 	public function __construct(){
-		$this->postModel = $this->model("Post");	
+		$this->postModel = $this->model("Post");
 	}
 
 
@@ -39,7 +39,7 @@ class Posts extends Controller {
 			}
 		}else	redirect("users/login");
 	}
-	
+
 	/*public function deletePost($del) {
 		if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
@@ -65,7 +65,7 @@ class Posts extends Controller {
 
 
 	public function addComment($id){
-	
+
 
 		if(isset($_SESSION["user_id"])){//	&& $this->postModel->threadExists($id)){
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -85,38 +85,46 @@ class Posts extends Controller {
 			}
 		}else	redirect("posts/seePost/" . $id);
 	}
-	
+
 	public function deleteAllComment($del) {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
+        if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid($del)*/isset($_SESSION["user_id"]) && ($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator')) {
+            //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->postModel->deleteAllComment($del);
-            redirect("posts/comments");
+            //}
         }
     }
 
     public function deleteComment($del) {
-        if($_SESSION["user_id"] === $this->postModel->getCommentUserid($del) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator') {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid($del)*/isset($_SESSION["user_id"]) && ($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator')) {
+            //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->postModel->deleteComment($del);
-                redirect("posts/comments");
-            }
+                redirect("threads/index");
+          //  }
         }
     }
-	
+
 	public function deleteAllPost($del) {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
+        if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid($del)*/isset($_SESSION["user_id"]) && ($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator')) {
+            //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->postModel->checkComment($del)) {
+                $this->deleteAllComment($del);
+            }
             $this->postModel->deleteAllPost($del);
-            redirect("posts/allposts");
+            redirect("posts/seePost/");
+            //}
         }
     }
 
     public function deletePost($del) {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
+        if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid($del)*/isset($_SESSION["user_id"]) && ($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator')) {
+            //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+             if (($this->postModel->checkComment($del)) > 0) {
+                 $this->deleteAllComment($del);
+             }
             $this->postModel->deletePost($del);
-            redirect("posts/allposts");
+            redirect("threads/index");
+            // }
         }
     }
-} 
+}
 ?>

@@ -19,7 +19,7 @@ require APPROOT . "/controllers/Threads.php";
 	<td><?php echo "<font size='+2'> $post->username </font>" ?></td>
 	<td><?php echo "<font size='-1'> $post->date </font>" ?> </td>
     <?php if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid() &&*/ $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){ ?>
-		<td><a href="<?php echo URL; ?>/post/deletePosts/<?php echo $thread->threadid;?>">Delete</a></td>
+		<td><a href="<?php echo URL; ?>/Posts/deletePost/<?php echo $post->postid;?>">Delete</a></td>
 	<?php } ?>
 </tr>
 <?php endforeach; ?>
