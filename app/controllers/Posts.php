@@ -84,12 +84,6 @@ class Posts extends Controller {
 		}else	redirect("posts/seePost/" . $id);
 	}
 
-
-
-
-
->>>>>>> c2e4b0476dcbc1857406440f1f734efebc076717
-
 } 
 
 ?>
