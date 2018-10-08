@@ -4,11 +4,11 @@
 // Prepare statements
 // return results
 
-class Database {
+class Log {
 	private $host = DB_HOST;
-	private $user = DB_USER;
-	private $pass = DB_PASSWORD;
-	private $dbname = DB_NAME;
+	private $user = LOGS_USER;
+	private $pass = LOGS_PASSWORD;
+	private $dbname = LOGS_NAME;
 	
 	private $dbh;
 	private $stmt;

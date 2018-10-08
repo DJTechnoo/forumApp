@@ -5,6 +5,7 @@ class Users extends Controller {
 	
 	public function __construct(){
 		$this->userModel = $this->model("User");
+		$this->userLogModel = $this->model("UserLog");
 	}
 	
 	public function register(){
@@ -73,18 +74,25 @@ class Users extends Controller {
 				"hash" => trim($_POST["hash"])
 			];
 
+			
+
 			if($this->userModel->withThisEmail($data["email"])){
 				$loggedInUser = $this->userModel->login($data["email"], $data["hash"]);
 				if($loggedInUser){
 
 				// AT THIS POINT THE USER IS SUCCESSFULLY LOGGED IN
+					$this->userLogModel->loginAttempt($data['email'], true);
 					$this->createSession($loggedInUser);
 
 				
 				}else{
+					$this->userLogModel->loginAttempt($data['email'], false);
 					$this->view("users/login", $data);
 				}
-			} else $this->view("users/login", $data);		
+			} else {
+					$this->userLogModel->loginAttempt($data['email'], false);
+					$this->view("users/login", $data);	
+			}	
 		}else{
 			$data = [
 					"email"		=> "",
