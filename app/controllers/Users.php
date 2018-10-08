@@ -10,6 +10,7 @@ class Users extends Controller {
 	
 	public function register(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			
 
 			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data = [
@@ -69,6 +70,7 @@ class Users extends Controller {
 
 	public function login(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			$ipaddress = getUserIp();
 			$data = [
 				"email" => trim($_POST["email"]),
 				"hash" => trim($_POST["hash"])
@@ -81,16 +83,16 @@ class Users extends Controller {
 				if($loggedInUser){
 
 				// AT THIS POINT THE USER IS SUCCESSFULLY LOGGED IN
-					$this->userLogModel->loginAttempt($data['email'], true);
+					$this->userLogModel->loginAttempt($data['email'], true, $ipaddress);
 					$this->createSession($loggedInUser);
 
 				
 				}else{
-					$this->userLogModel->loginAttempt($data['email'], false);
+					$this->userLogModel->loginAttempt($data['email'], false, $ipaddress);
 					$this->view("users/login", $data);
 				}
 			} else {
-					$this->userLogModel->loginAttempt($data['email'], false);
+					$this->userLogModel->loginAttempt($data['email'], false, $ipaddress);
 					$this->view("users/login", $data);	
 			}	
 		}else{
