@@ -7,7 +7,9 @@
 <p>Mustafa Abdullah</p>
 <p>Askel Eirik Johansson</p>
 <p>Kevin Abadi Barhaugen</p>
+
 <?php require APPROOT . "/views/inc/footer.php"; ?>
+
 <style>
 	p {
 		text-align: center;

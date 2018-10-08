@@ -1,6 +1,5 @@
 <?php 
-require APPROOT . "/views/inc/header.php"; 
-//require APPROOT . "/helper/sessionHelper.php";
+require APPROOT . "/views/inc/header.php";
 ?>
 <h1><?php echo $data["title"];?></h1>
 
@@ -28,10 +27,12 @@ require APPROOT . "/views/inc/header.php";
 	.center {
 		float: center;
 	}
+	
 	p {
 		color: white;
 		text-align: center;
 	}
+	
 	.login {
 		height: 170px;
 	}

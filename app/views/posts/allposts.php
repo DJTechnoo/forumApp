@@ -6,6 +6,7 @@ require APPROOT . "/controllers/Threads.php";
 <h2>
 	<li><a href="<?php echo URL; ?>/posts/addpost/<?php echo $data["currentThread"]; ?>"><p>New Post</p></a></li><br/><br/><br/><br/>
 </h2>
+
 <table>
 <tr>
 	<th class="size" scope="col"><font size="+3">Title</font></th>
@@ -24,7 +25,9 @@ require APPROOT . "/controllers/Threads.php";
 </tr>
 <?php endforeach; ?>
 </table>
+
 <?php require APPROOT . "/views/inc/footer.php"; ?>
+
 <style>
 	.size {
 		width: 80%;

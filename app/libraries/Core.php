@@ -18,16 +18,13 @@ class Core {
 		
 		require_once "../app/controllers/".$this->currentController . '.php';
 		$this->currentController = new $this->currentController;
-		
-		
+				
 		if(isset($url[1])){
 			if(method_exists($this->currentController, $url[1])){			// Does the method exist?
 				$this->currentMethod = $url[1];
 				unset($url[1]);
 			}	
-		}
-		
-		//echo "<br>current method: $this->currentMethod";
+		}		
 		
 		$this->params = $url ? array_values($url) : [];
 		
@@ -37,9 +34,7 @@ class Core {
 			$this->currentMethod],
 			$this->params
 		);
-	}
-	
-	
+	}	
 	
 	public function getUrl(){
 		if(isset($_GET['url'])){
@@ -51,6 +46,4 @@ class Core {
 		}
 	}
 }
-
-
 ?>

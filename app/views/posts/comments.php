@@ -13,7 +13,6 @@
 	<th scope="col"><font size="+3">Date</font></th>
 </tr>
   
-
 <?php foreach($data["comments"] as $comment) :?>
 <tr>
 		  <td><?php echo "<font size='+2'> $comment->text </font>" ?></td>
