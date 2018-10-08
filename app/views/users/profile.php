@@ -18,29 +18,23 @@
 	.login {
 		height: 170px;
 	}
-	
 	font{
 		color: white;
 		font-size: 20px;
 	}
-	
 	.margin {
 		margin-left: 1em;
 	}
-	
 	.grey {
 		background-color: grey;
 		float: center;
 	}
-	
 	.moreMargin {
 		margin-left: 2.5em;
 	}
-	
 	.lessMargin {
 		margin-left: 0.9em;
 	}
-	
 	li {
 		float: center;
 	}

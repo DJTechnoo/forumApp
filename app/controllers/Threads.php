@@ -6,6 +6,7 @@ class Threads extends Controller {
 		$this->threadModel = $this->model("Thread");
 	}
 
+
 	public function index(){
 		$data = [];
 		$data["title"] = "Threads";
@@ -46,18 +47,22 @@ class Threads extends Controller {
 
     public function deleteAllPost($del) {
         if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid($del)*/isset($_SESSION["user_id"]) && ($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator')) {
+            //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->threadModel->checkComment($del)) {
                 $this->deleteAllComment($del);
             }
             $this->threadModel->deleteAllPost($del);
 
             redirect("posts/seePost/");
+            //}
         }
     }
 
     public function deleteAllComment($del) {
         if(/*$_SESSION["user_id"] === $this->postModel->getCommentUserid($del)*/isset($_SESSION["user_id"]) && ($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator')) {
+            //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->threadModel->deleteAllComment($del);
+            //}
         }
     }
 
@@ -73,5 +78,9 @@ class Threads extends Controller {
             $this->deleteAllPost($del);
         }
     }
+
 }
+
+
+
 ?>

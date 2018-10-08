@@ -1,11 +1,13 @@
 <?php 
-require APPROOT . "/views/inc/header.php";
+require APPROOT . "/views/inc/header.php"; 
+//require APPROOT . "/helper/sessionHelper.php";
 ?>
 <h1><?php echo $data["title"];?></h1>
 
-<?php if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator') {?>
+<?php if(isset($_SESSION["user_id"]) && isset($_SESSION["user_priviliege"])) { ?>
+<?php if(($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator')) {?>
 <li><h2><a href="<?php echo URL; ?>/threads/addthread">Add new thread</a></h2></li><br/><br/><br/><br/><br/><br/>
-<?php } ?>
+<?php } } ?>
 
 <table>
 <tr>
@@ -16,9 +18,10 @@ require APPROOT . "/views/inc/header.php";
 	<tr>
 		<td><a href="<?php echo URL; ?>/posts/listposts/<?php echo $thread->threadid;?>"><?php echo "<font size='+3'>$thread->threadname</font>" ?></a></td>	
 		<td><p class='center'><?php echo $thread->postcount ?></p></td>
-		<?php if(isset($_SESSION["user_id"]) && $_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){ ?>
+        <?php if(isset($_SESSION["user_id"]) && isset($_SESSION["user_priviliege"])) { ?>
+		<?php if($_SESSION["user_priviliege"] === 'admin' || $_SESSION["user_priviliege"] === 'moderator'){ ?>
 		<td><a href="<?php echo URL; ?>/Threads/deleteThread/<?php echo $thread->threadid;?>">Delete</a></td>
-		<?php } ?>
+		<?php } } ?>
 	</tr>
 <?php endforeach; ?>
 </table>
@@ -27,12 +30,10 @@ require APPROOT . "/views/inc/header.php";
 	.center {
 		float: center;
 	}
-	
 	p {
 		color: white;
 		text-align: center;
 	}
-	
 	.login {
 		height: 170px;
 	}

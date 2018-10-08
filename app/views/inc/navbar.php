@@ -2,7 +2,6 @@
 	body {
 		background-color: grey;
 	}
-
 	ul {
 		list-style-type: none;
 		margin: 0;
@@ -10,12 +9,10 @@
 		overflow: hidden;
 		background-color: #333;
 	}
-
 	li {
 		float:  left;
 		display:inline;
 	}
-
 	li a {
 		display: block;
 		color: white;
@@ -23,57 +20,44 @@
 		padding: 14px 16px;
 		text-decoration: none;
 	}
-
 	li a:hover {
 		background-color: #111;
 	}
-
 	h1 {
 		color: white;
 	}
-
 	p {
 		color: white;
 	}
-	
 	table, tr, th, td {
 		border: 1px solid grey;
 	}
-	
 	th, td {
 		padding: 5px;
 	}
-
 	th {
 		color: white;
 		width: 100%;
 	}
-
 	table {
 		background-color: #333;
 	}
-
 	th {
 		text-align: left;
 	}
-
 	tr {
 		border-color: grey;
 	}
-
 	tr:hover {
 		background-color: #111;
 	}
-
 	td {
 		color: white;
 	}
-
 	a {
 		color: white;
 		text-decoration: none;
 	}
-
 	.login {
 		background: #333;
 		border: 1px solid #42464b;
@@ -82,7 +66,6 @@
 		margin: 20px auto 0;
 		width: 298px;
 	}
-	
 	.login h1 {
 		background-image: linear-gradient(top, #f1f3f3, #d4dae0);
 		border-bottom: 1px solid grey;
@@ -110,19 +93,16 @@
 		transition: box-shadow 0.3s;
 		width: 240px;
 	}
-	
 	input[type="password"]:focus, input[type="text"]:focus, textarea:focus {
 		box-shadow: 0 0 4px 1px;
 		outline: 0;
 	}
-	
 	.show-password {
 		display: block;
 		height: 16px;
 		margin: 26px 0 0 28px;
 		width: 87px;
 	}
-	
 	input[type="checkbox"] {
 		cursor: pointer;
 		height: 16px;
@@ -130,12 +110,10 @@
 		position: relative;
 		width: 64px;
 	}
-	
 	input[type="checkbox"]:checked {
 		left: 29px;
 		width: 58px;
 	}
-	
 	.toggle {
 		background: url(http://i.minus.com/ibitS19pe8PVX6.png) no-repeat;
 		display: block;
@@ -144,9 +122,7 @@
 		width: 87px;
 		z-index: -1;
 	}
-	
 	input[type="checkbox"]:checked + .toggle { background-position: 0 -16px }
-	
 	.forgot {
 		color: grey;
 		display: inline-block;
@@ -158,7 +134,6 @@
 		top: 5px;
 		transition: color .4s;
 	}
-	
 	.forgot:hover { color: black }
 	input[type="submit"] {
 		width:240px;
@@ -194,12 +169,11 @@
 	<li>
 		<a href="<?php echo URL; ?>/pages/about">About</a>	
 	</li>
-	
 	<li>
 		<a href="<?php echo URL; ?>/threads/index">Threads</a>
 	</li>
+<?php if(isset($_SESSION['user_id'])): ?>
 	
-<?php if(isset($_SESSION['user_id'])): ?>	<!-- If user is logged in: -->
 	<li>
 		<a href="<?php echo URL; ?>/users/displayProfile">Profile</a>
 	</li>
