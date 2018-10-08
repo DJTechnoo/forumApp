@@ -60,6 +60,7 @@ class Users extends Controller {
 
 	public function login(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			$ipaddress = getUserIp();
 			$data = [
 				"email" => trim($_POST["email"]),
 				"hash" => trim($_POST["hash"])
@@ -82,6 +83,15 @@ class Users extends Controller {
 			else 
 			{
 					$this->userLogModel->loginAttempt($data['email'], false);
+					$this->userLogModel->loginAttempt($data['email'], true, $ipaddress);
+					$this->createSession($loggedInUser);
+				
+				}else{
+					$this->userLogModel->loginAttempt($data['email'], false, $ipaddress);
+					$this->view("users/login", $data);
+				}
+			} else {
+					$this->userLogModel->loginAttempt($data['email'], false, $ipaddress);
 					$this->view("users/login", $data);	
 			}	
 		}
@@ -140,9 +150,6 @@ class Users extends Controller {
                 $this->view("users/password");
 
             } else {
-                #$salt = random_bytes(15); //Generating 15 random bytes
-                #$salt = base64_encode($salt); //Converting the random bytes to base64
-                #$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
                 $salt = salt();
                 $data["hash"] = crypt($data["password"], '$2y$12$'.$salt.'$');
                 $this->userModel->updatePassword($data);
