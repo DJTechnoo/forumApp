@@ -21,7 +21,9 @@ class Thread {
 						 VALUES (:threadname, :userid)");
 		$this->db->bind(":threadname", $data["threadname"]);
 		$this->db->bind(":userid", $data["userid"]);
-		$this->db->execute();
+		$lastId = $this->db->execute();
+		return $lastId;
+		
 	}
 
 	public function deleteThread($del){

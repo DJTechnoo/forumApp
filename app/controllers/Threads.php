@@ -4,6 +4,7 @@ class Threads extends Controller {
 
 	public function __construct(){
 		$this->threadModel = $this->model("Thread");
+		$this->threadLogModel = $this->model("ThreadLog");
 	}
 
 
@@ -28,7 +29,8 @@ class Threads extends Controller {
 						"userid" => $_SESSION["user_id"]
 				];
 
-				$this->threadModel->insertThread($data);		// add thread to db
+				$data["threadid"] = $this->threadModel->insertThread($data);		// add thread to db
+				$this->threadLogModel->logThread($data);
 				redirect("threads/index");
 			}else $this->view("/threads/addthread", []);
 		}else	redirect("users/login");
