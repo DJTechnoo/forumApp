@@ -1,5 +1,4 @@
 <?php
-
 class User {
 
 	private $db;
@@ -16,14 +15,12 @@ class User {
 
 	}
 
-
 	public function withThisEmail($email){
 		$this->db->query("SELECT * FROM users WHERE email LIKE :email");
 		$this->db->bind(":email", $email);
 		$row = $this->db->single();
 		return ($this->db->rowCount() > 0);
 	}
-
 
 	public function register($data){
 		$this->db->query("INSERT INTO users (email, hash, username, firstname, lastname)
@@ -35,7 +32,6 @@ class User {
 		$this->db->bind(":lastname", $data["lastname"]);
 		$this->db->execute();
 	}
-
 
 	// Return user row if password match
 	public function login($email, $password){
@@ -49,14 +45,6 @@ class User {
 		}
 		return false;
 	}
-
-	/*public function displayProfile($id) {
-        $this->db->query( "SELECT username, userpriviliege, firstname, lastname, email FROM users WHERE userid = :userid");
-        $this->db->bind(":userid", $id);
-        $row = $this->db->single();
-        return $row;
-
-    }*/
 	
 	public function displayUsername($id) {
         $this->db->query("SELECT username FROM users WHERE userid = :userid");
@@ -100,7 +88,4 @@ class User {
         $this->db->execute();
     }
 }
-
-
-
 ?>

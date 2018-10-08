@@ -1,5 +1,4 @@
 <?php
-
 function redirect($page){
 	header("location: " . URL . "/" . $page);
 
@@ -10,5 +9,4 @@ function salt(){
 	$salt = str_replace('+', '.', $salt); //Replacing all '+' with '.'
 	return($salt);
 }
-
 ?>

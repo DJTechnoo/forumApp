@@ -11,6 +11,7 @@
 		width: 300px;
 		height: 330px;
 	}
+	
 	textarea {
 		margin-left: 2em;
 		height: 170px;

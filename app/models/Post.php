@@ -1,5 +1,4 @@
 <?php
-
 class Post {
 
 	private$db;
@@ -116,7 +115,5 @@ class Post {
         $row = $this->db->single();
         return ($this->db->rowcount() > 0);
     }
-
-
 }
 ?>

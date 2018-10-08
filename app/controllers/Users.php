@@ -1,7 +1,5 @@
 <?php
-
 class Users extends Controller {
-	
 	
 	public function __construct(){
 		$this->userModel = $this->model("User");
@@ -20,7 +18,6 @@ class Users extends Controller {
 					"lastname"	=> trim($_POST["lastname"])
 			];
 
-			
 			// Check to see that all fields are filled
 			// Check to see if the email is valid
 			// Check to see if either username or email is taken
@@ -35,8 +32,7 @@ class Users extends Controller {
 			elseif($this->userModel->withThisName($data["username"]) || $this->userModel->withThisEmail($data["email"]))
 			{
 				$this->view("users/taken", $data);	
-			}
-			
+			}			
 			else
 			{
 				//$salt = random_bytes(15); //Generating 15 random bytes
@@ -47,9 +43,7 @@ class Users extends Controller {
 				$this->userModel->register($data);
 				redirect("users/login");
 			}
-		
 		}
-		
 		else
 		{
 			$data = [
@@ -64,9 +58,6 @@ class Users extends Controller {
 		}
 	}
 
-
-
-
 	public function login(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			$data = [
@@ -74,26 +65,28 @@ class Users extends Controller {
 				"hash" => trim($_POST["hash"])
 			];
 
-			
-
 			if($this->userModel->withThisEmail($data["email"])){
 				$loggedInUser = $this->userModel->login($data["email"], $data["hash"]);
 				if($loggedInUser){
 
 				// AT THIS POINT THE USER IS SUCCESSFULLY LOGGED IN
 					$this->userLogModel->loginAttempt($data['email'], true);
-					$this->createSession($loggedInUser);
-
-				
-				}else{
+					$this->createSession($loggedInUser);				
+				}
+				else
+				{
 					$this->userLogModel->loginAttempt($data['email'], false);
 					$this->view("users/login", $data);
 				}
-			} else {
+			} 
+			else 
+			{
 					$this->userLogModel->loginAttempt($data['email'], false);
 					$this->view("users/login", $data);	
 			}	
-		}else{
+		}
+		else
+		{
 			$data = [
 					"email"		=> "",
 					"hash"		=> "",
@@ -104,8 +97,6 @@ class Users extends Controller {
 		}
 	}
 
-
-
 	public function logout(){
 
 		unset($_SESSION['user_id']);
@@ -115,7 +106,6 @@ class Users extends Controller {
 
 		redirect("users/login");
 	}
-
 
 	public function createSession($user){
 		
@@ -134,8 +124,7 @@ class Users extends Controller {
             "lastname" => $this->userModel->displayLastname($_SESSION["user_id"]),
             "email" => $this->userModel->displayEmail($_SESSION["user_id"]),
         ];
-        $this->view("users/profile", $data);
-        
+        $this->view("users/profile", $data);        
     }
 
     public function updatePassword() {
@@ -158,11 +147,8 @@ class Users extends Controller {
                 $data["hash"] = crypt($data["password"], '$2y$12$'.$salt.'$');
                 $this->userModel->updatePassword($data);
                 redirect("pages/index");     #Evt. redirect tilbake til profil page
-
             }
         }else $this->view("users/updatepwd");
     }
 }
-
-
 ?>
